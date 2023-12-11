@@ -9,11 +9,19 @@ from extensions import db
 from extensions import migrate
 from extensions import cors
 
+import firebase_admin
+from firebase_admin import credentials,auth
+from firebase_admin import exceptions
 
 
 load_dotenv()
 
+cred = credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
 
+options ={
+    "serviceAccountId" : "token-899@ordinal-verbena-407812.iam.gserviceaccount.com"
+}
+default_app = firebase_admin.initialize_app(options=options)
 
 app = Flask(__name__)
 app.register_blueprint(blueprint=blueprint)

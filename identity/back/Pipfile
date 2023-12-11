@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 alembic = "*"
 flask-restful = "*"
+flask-sqlalchemy = "*"
+flask-cors = "*"
+flask-migrate = "*"
+python-dotenv = "*"
+firebase-admin = "*"
 
 [dev-packages]
 

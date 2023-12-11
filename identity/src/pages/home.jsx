@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 
 import { initializeApp } from 'firebase/app';
 import {
     onAuthStateChanged,
     signInWithEmailAndPassword,
-    getAuth
+    getAuth,
+    signInWithCustomToken
   } from 'firebase/auth';
 
 
 const Home = () => {
-
+    const {store, actions} = useContext(Context)
     const [user, setUser] = useState({});
     const user_setinator = (event) => {
         setUser({ ...user, [event.target.id]: event.target.value });
@@ -26,18 +28,25 @@ const Home = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app, {/* extra options */ });
 
-    const signin =  (e) => {
+    const signin =  async(e) => {
         e.preventDefault()
-        console.log(user)
+        
         signInWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user)
-                // ...
+                let token = actions.getToken(user.email)
+                console.log(newUser)
+                //esto queda en promesa, queda ver como la resuelvo antes del signin
+                signInWithCustomToken(auth,token.token)
+                const newUser = userCredential.user;
+                
+
+                	
+                
             })
             .catch((error) => {
-                document.getElementById("message").innerHTML = error.message;
+                alert(error.message) ;
             });
     }
 

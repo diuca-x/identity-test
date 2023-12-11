@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ordinal-verbena-407812",
+  "private_key_id": "9c96c10a6c535f896faadb9d687ef5d17444adc9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCheOWhOvBoXh3F\nQcBnGYXh+8pxwvlBKjQhuCGovRzDA0cqv6BdP8RoDXBME1kma1KVsY9qo45G1ji+\nz/Ng4mCkRYWohzN2TeMy22KnNg2BxXj2ysKozxZooaIiOcuPDfqtmYJX0EW5WXDv\nc2gK2m4dkexZNaizjujmZ2b0soDjZovhpRybsmsYvhYjY9yXJhU0v/FqqjmulFTe\n7gaJuWylDWpADLlRs4pM3xWRrlSwNhpikbqO4hOg+Gmr1p9OJt8M8Mh2v/iDtTTr\nrSVGNlJjhz/roYElKsZUp+YMNbXw28f1zvEEXLf9g1HXoOHbYCEVJZ0xHtIaoHfA\n9q05X6pzAgMBAAECggEAKHg+CUpV3bqU+I7xs4Vklk5+n0OQKCJ1PWxCV2HKdx/3\nssGjZiuoxLF1j0OcKPJmGOmPOdlzO9LOFxjUdVhXg2R/Ss1T+xcrVeBBWgpEmV1O\nY4BPCHMauS+ljLFykNCenurmDa9AAmPl18XTckDrr1KW64b02Mf9HF4XIkYo4pU2\n8wKLieeTdh2ZVaaO21Oh/41D9j2CpV6Tee5D3N2tKh97y7A9bfuRDELLdE+8fTnp\nvdGMXl2E7cTLCSYO+gZs6+f5ap08eWQ0YBX7QBY9y4pqbVG64ZLUDEoRwiiJbSvX\nNSG4UK/Epa1TFaZCjM5+CuAswFEoynikCSJbmVRLJQKBgQDjjZYAlbEiS/v6VBkI\nkHayBE6sPiUx68Jq5HwJNbIYQfuPOWcbhY5WrvWZBcRH8/vznmqtNW42MUr+rucC\nUINBzlDK7vaFl5PNa9GQXT6UjBoTqIJXS9PIGB3dyb8JEfkLTsSJo3ws/LAx6BuT\njeat2ljODgbX0Re86+H5wtJrJQKBgQC1qIRdy465ntWlVx0vl8VZpeQOr9P/Avls\n+XmnL1zyvy+IG7nOO9jJC7TrxV4IUzyfSxJn/QY/VwqBaKFnNC6jT12NUjGXCjMw\n5hnbLyBIBrGt+BMyzlFNcLW7uy04Kbsi0OeMMWECXaUMxA4cy0+u6p/tu0mlpeUc\n5mPnLEXXtwKBgASQ27ipSEOa6LRuKY5tb6REx9tW5+Ini+AfM4nvxOINuOF30mTP\n+jotCoqGfhi/gYey3wsYrlxyAsI3ejUmrmuMmzxnLRUjJHkTt8HAzTen1AIe+HaN\n8/Lo4PiJSscA0FF0xCbK2/v/Gf32XU9Jop5MaknAKEz+Sg6lYQRk71ntAoGBAJCI\nPqCd57XaISQG9qq6N4PHUHc7ABIinK9OorMZJPvij3/ch24GAcqb7Nu10cYP6+jV\ngxSHpWPZ7frec6S4SO8Yo1dgcSI6NFaQjTvt9+I2qUHAYg4HR3q01XNDTowj78eY\nrNHHK+cE+N/6UTwpqwGBnbM5UzRflLX0vMHeYMdrAoGBAIUk+V9pURXZ7KA5qUwk\nkpMyliztaHda4/G84HjMu0rZnNCwW5M7KCnsnSv2GxTK7isn5OBwHnavWyOg1PJP\nfR8T9CeC5D9SZtvhSxGMw9LrAfSph4/heulmGKqgO4/f+8GESXWe3CFFAf4AA/ty\nW/jU5wQKrEtqcazMLKyuWSd3\n-----END PRIVATE KEY-----\n",
+  "client_email": "token-899@ordinal-verbena-407812.iam.gserviceaccount.com",
+  "client_id": "112073562586258535898",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/token-899%40ordinal-verbena-407812.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
