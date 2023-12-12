@@ -30,7 +30,7 @@ app.config.from_object("config")
 
 db.init_app(app)
 migrate.init_app(app,db)
-cors.init_app(app, resources={r"/api/*"})
+cors.init_app(app, resources={r"/api/*"}, origins="*",methods=["POST","GET"])
 #debug = os.environ.get("FLASK_DEBUG", False)
 
 if __name__ == "__main__":

@@ -29,12 +29,20 @@ class SingleQuestion(Resource): #to get all questions, or create a new one
 class Token(Resource):
     def post(self):
         data = request.json
-        
-        user = auth.get_user_by_email(data.get("email"))
+        token = data.get("token")
+        print(token)
+        try:
+            decoded_token = auth.verify_id_token(token)
+            uid = decoded_token.get("uid")
+            custom_token = auth.create_custom_token(uid)
+            print(custom_token)
+            response = jsonify({"token" : custom_token.decode("utf-8")})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            print(token)
+            return make_response(response,200)
+        except auth.InvalidIdTokenError as e:
+            return make_response(jsonify({"message":"Error"})),400
         
 
-        custom_token = auth.create_custom_token(user.uid)
-        print(custom_token)
-        return make_response(jsonify({"token" : custom_token.decode('utf-8')}),200)
 
         
