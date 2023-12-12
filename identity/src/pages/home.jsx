@@ -34,13 +34,12 @@ const Home = () => {
         signInWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
-                let token = actions.getToken(user.email)
-                console.log(newUser)
+                const user1 = userCredential.user;
+                console.log(user1)
+                let token = actions.getToken(user1.accessToken)
+                //console.log(newUser)
                 //esto queda en promesa, queda ver como la resuelvo antes del signin
-                signInWithCustomToken(auth,token.token)
-                const newUser = userCredential.user;
-                
+                console.log(token)                
 
                 	
                 

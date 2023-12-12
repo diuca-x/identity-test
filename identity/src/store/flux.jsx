@@ -23,15 +23,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			
-			getToken: async (mail) => {
+			getToken: async (token) => {
 				
 				try{
 					
 					// fetching data from the backend}
-					
+					console.log("token es"+token)
 					const resp = await fetch( import.meta.env.VITE_BACKEND_URL+"api/test", 
 						{method: "POST",
-						body: JSON.stringify({"email":mail}),
+						body: JSON.stringify({"token":token}),
 						headers: {
 						  "Content-Type": "application/json",
 						}})

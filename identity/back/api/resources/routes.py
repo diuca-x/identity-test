@@ -43,6 +43,11 @@ class Token(Resource):
         except auth.InvalidIdTokenError as e:
             return make_response(jsonify({"message":"Error"})),400
         
+class Login(Resource):
+    def post(self):
+        data = request.json
+        print(data)
 
+        return make_response(jsonify({"message":"asd"}))
 
         

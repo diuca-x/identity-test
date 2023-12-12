@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.1",
     "bootstrap": "^5.3.1",
     "cross-env": "^7.0.3",
     "fetch": "^1.1.0",
