@@ -10,7 +10,7 @@ import injectContext from "./store/appContext";
 import Home from './pages/home';
 import Prehome from './pages/prehome';
 import Google from './pages/google';
-
+import Twofactor from './pages/twofactor';
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
                         <Route element={<Home />} path="/signup" />
                         <Route element={<Prehome />} path="/" />
                         <Route element={<Google />} path="/googlesignup" />
+                        <Route element={<Twofactor />} path="/twofactor" />
 
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
@@ -32,7 +33,7 @@ function App() {
 
                 </BrowserRouter>
         </div>
-    );
+    )
 }
 
 export default injectContext(App)

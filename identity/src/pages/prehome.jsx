@@ -45,6 +45,7 @@ const Prehome = () => {
                 to regular signupp
             </button>
             <button type="button" className="btn btn-primary" onClick={() => {navigate("/googlesignup", { replace: true })}}>to google signup</button>
+            <button type="button" className="btn btn-primary" onClick={() => {navigate("/twofactor", { replace: true })}}>to two factor inscription</button>
 
         </div>
            

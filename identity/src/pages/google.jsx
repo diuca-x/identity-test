@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { jwtDecode } from "jwt-decode";
 
 import { initializeApp } from 'firebase/app';
 import {
@@ -12,6 +13,8 @@ import {
 
 } from 'firebase/auth';
 import { GoogleLogin } from '@react-oauth/google';
+
+//for two step capcha widget
 
 
 
@@ -86,13 +89,31 @@ const Google = () => {
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={(e) => { signin(e) }}>singin with google</button>
 
+                <div id="g_id_onload"
+                    data-client_id="330271854417-jlvht3gh4akfbq7mtjvgm7um96jd5ca6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback=
+                    'console.log("asd")'
+                    data-itp_support="true">
+                </div>
+
+                <div className="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="filled_blue"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
                 {// abajo boton de google de react, arriba el de la docu que no anda 
                 }
 
 
                 <GoogleLogin
                     onSuccess={credentialResponse => {
-                        console.log(credentialResponse);
+                        let data  = jwtDecode(credentialResponse.credential)
+                        console.log(data);
                     }}
                     onError={() => {
                         console.log('Login Failed');
