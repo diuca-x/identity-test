@@ -24,7 +24,7 @@ class SingleQuestion(Resource): #to get all questions, or create a new one
         return make_response(jsonify({"msg" : "need to have at least 3 options"}),400)
         return jsonify(alldic)
     
-
+#a
     
 class Token(Resource):
     def post(self):
