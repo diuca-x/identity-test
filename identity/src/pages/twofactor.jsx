@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 
 import { initializeApp } from 'firebase/app';
@@ -11,7 +11,7 @@ import {
 
 import {
     multiFactor, PhoneAuthProvider, PhoneMultiFactorGenerator,
-    RecaptchaVerifier
+    RecaptchaVerifier,getMultiFactorResolver
 } from "firebase/auth";
 
 
@@ -34,41 +34,28 @@ const Twofactor = () => {
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app, {/* extra options */ });
-    auth.settings.appVerificationDisabledForTesting = false
+    auth.useDeviceLanguage();
 
 
     //for twostep captcha
-    //const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container-id', undefined, auth);
-
-    
-
-
-    const signin = async (e) => {
-        e.preventDefault()
-
-        signInWithEmailAndPassword(auth, user.email, user.password)
-            .then((userCredential) => {
-                // Signed in 
-                const user1 = userCredential.user;
-                setAuthUser(user1)
-                console.log(user1)
-
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
-    }
-    const two_factor = () => {
-        console.log(authUser)
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'captcha', {
+    useEffect(() => {
+        
+        const recaptchaVerifier =  new RecaptchaVerifier(auth, 'captcha', {
             'size': 'invisible',
             'callback': (response) => {
-              // reCAPTCHA solved, allow signInWithPhoneNumber.
-              onSignInSubmit();
-              console.log("asd")
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                
+                onSolvedRecaptcha();
             }
-          });
-          
+        });
+        setResponse(recaptchaVerifier)
+      }, []);
+
+
+    const two_factor = () => {
+        console.log(authUser)
+       
+
 
         multiFactor(authUser).getSession()
             .then(function (multiFactorSession) {
@@ -81,18 +68,80 @@ const Twofactor = () => {
                 const phoneAuthProvider = new PhoneAuthProvider(auth);
 
                 // Send SMS verification code.
-                alert(phoneAuthProvider.verifyPhoneNumber(phoneInfoOptions, window.recaptchaVerifier))
-                return phoneAuthProvider.verifyPhoneNumber(phoneInfoOptions, window.recaptchaVerifier);
-            }).then(function (verificationId) {
-                // Ask user for the verification code. Then:
-                console.log("asd")
-                let verificationCode = prompt("Enter code: ")
+                alert(cresponse)
+                
+                phoneAuthProvider.verifyPhoneNumber(phoneInfoOptions, cresponse)
+                .then(function (verificationId) {
+                    // verificationId will be needed to complete enrollment.
+                    let verificationCode = prompt("Enter code: ")
 
-                const cred = PhoneAuthProvider.credential(verificationId, verificationCode);
-                const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
+                    const cred = PhoneAuthProvider.credential(verificationId, verificationCode);
+                    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
 
-                // Complete enrollment.
-                return multiFactor(user).enroll(multiFactorAssertion, mfaDisplayName);
+                    // Complete enrollment.
+                    return multiFactor(authUser).enroll(multiFactorAssertion, "+34722617903");
+                });
+
+            })
+    }
+
+    const signin = async (e) => {
+        e.preventDefault()
+       
+
+        signInWithEmailAndPassword(auth, user.email, user.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user1 = userCredential.user;
+                setAuthUser(user1)
+                console.log(user1)
+
+            })
+            .catch((error) => {
+                if (error.code == 'auth/multi-factor-auth-required') {
+                    // The user is a multi-factor user. Second factor challenge is required.
+                    const resolver = getMultiFactorResolver(auth, error);
+                    const phoneInfoOptions = {
+                        multiFactorHint: resolver.hints[0],
+                        session: resolver.session
+                    };
+                    const phoneAuthProvider = new PhoneAuthProvider(auth);
+                   
+
+                    phoneAuthProvider.verifyPhoneNumber(phoneInfoOptions, cresponse)
+                        .then(function (verificationId) {
+                            // verificationId will be needed for sign-in completion.
+                            let verificationCode = prompt("Enter code: ")
+                            const cred = PhoneAuthProvider.credential(verificationId, verificationCode);
+                            const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
+                            resolver.resolveSignIn(multiFactorAssertion)
+                            .then(function (userCredential) {
+                                // userCredential will also contain the user, additionalUserInfo, optional
+                                // credential (null for email/password) associated with the first factor sign-in.
+                        
+                                // For example, if the user signed in with Google as a first factor,
+                                // userCredential.additionalUserInfo will contain data related to Google
+                                // provider that the user signed in with.
+                                // - user.credential contains the Google OAuth credential.
+                                // - user.credential.accessToken contains the Google OAuth access token.
+                                // - user.credential.idToken contains the Google OAuth ID token.
+                                const user1 = userCredential.user;
+                                setAuthUser(user1)
+                                console.log(userCredential)
+                                
+
+                            }).catch((error) =>{
+                                alert(error.code)
+                            })
+                        
+                        }).catch((error) =>{
+                            alert(error.code)
+                        })
+                    // ...
+                } else if (error.code == 'auth/wrong-password') {
+                    // Handle other errors such as wrong password.
+                }
+                alert(error.message);
             });
     }
 
@@ -115,8 +164,9 @@ const Twofactor = () => {
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={(e) => { signin(e) }}>Submit</button>
             </form>
-           
-            <button type="button" id="captcha" className="btn btn-primary" onClick={() => { two_factor() }}>Register two factor</button>
+
+            <button type="button"  className="btn btn-primary" onClick={() => { two_factor() }}>Register two factor</button>
+            <div id="captcha"></div>
 
         </>
     )
