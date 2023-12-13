@@ -1,5 +1,6 @@
 from flask import jsonify, request, make_response
 from flask_restful import Resource, abort
+import requests
 
 
 #---import models
@@ -24,7 +25,7 @@ class SingleQuestion(Resource): #to get all questions, or create a new one
         return make_response(jsonify({"msg" : "need to have at least 3 options"}),400)
         return jsonify(alldic)
     
-#a
+
     
 class Token(Resource):
     def post(self):
@@ -49,5 +50,41 @@ class Login(Resource):
         print(data)
 
         return make_response(jsonify({"message":"asd"}))
-
+    
+class Signin(Resource):
+    def post(self):
+        data = request.json
+        print(data)
+        mail = data.get("email")
+        password = data.get("password")
         
+        user = auth.create_user(
+        email=mail,
+        email_verified=False,
+        #phone_number='',
+        password=password,
+        display_name='John Doe',
+        #photo_url='',
+        disabled=False)
+        print('Sucessfully created new user: {0}'.format(user.uid))
+        print(user)
+
+        return make_response(jsonify({"user":'user'}))
+    
+class CheckToken(Resource):
+    def post(self):
+        data = request.json
+        #print(data)
+        token_manager = data.get("stsTokenManager")
+        #print(token_manager)
+        
+
+        custom_token = auth.create_custom_token(data.get("uid"))
+        
+        #print(ah.verify_id_uttoken(custom_token))
+        #print(custom_token)
+        response = requests.post('https://securetoken.googleapis.com/v1/tokeninfo', json={'id_token': custom_token.decode("utf-8")})
+        print(response.json)
+        
+        return make_response(jsonify({"user":'user'}))
+
