@@ -12,7 +12,8 @@ from extensions import db
 import uuid
 from firebase_admin import auth
 
-
+#for expiration date
+import time
 
 class SingleQuestion(Resource): #to get all questions, or create a new one
     def get(self):
@@ -79,12 +80,18 @@ class CheckToken(Resource):
         #print(token_manager)
         
 
-        custom_token = auth.create_custom_token(data.get("uid"))
+        custom_token = auth.create_custom_token(data.get("uid"),{
+            "admin":True,
+            "exp": int(time.time()) + 300
+        })
         
+        
+
         #print(ah.verify_id_uttoken(custom_token))
-        #print(custom_token)
-        response = requests.post('https://securetoken.googleapis.com/v1/tokeninfo', json={'id_token': custom_token.decode("utf-8")})
-        print(response.json)
         
-        return make_response(jsonify({"user":'user'}))
+        #response = requests.post('https://securetoken.googleapis.com/v1/tokeninfo', json={'id_token': custom_token.decode("utf-8")})
+        
+        #print(response.json)
+        
+        return make_response({'custom_token': custom_token})
 
