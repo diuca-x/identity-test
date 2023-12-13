@@ -7,13 +7,17 @@ import requests
 from models.tables import Question
 
 #--- import db
-from extensions import db
+#from extensions import db
 
 import uuid
 from firebase_admin import auth
 
 #for expiration date
 import time
+
+
+#for firestore db
+
 
 class SingleQuestion(Resource): #to get all questions, or create a new one
     def get(self):
@@ -66,7 +70,8 @@ class Signin(Resource):
         password=password,
         display_name='John Doe',
         #photo_url='',
-        disabled=False)
+        disabled=False,
+        )
         print('Sucessfully created new user: {0}'.format(user.uid))
         print(user)
 
@@ -93,5 +98,14 @@ class CheckToken(Resource):
         
         #print(response.json)
         
-        return make_response({'custom_token': custom_token})
+        return make_response(jsonify({'custom_token': custom_token.decode("utf-8")}))
 
+
+class CustomFields(Resource):
+    def post(self):
+        data = request.json
+        dbf.collection('users').document(data['uid']).set(data)
+
+        print(data)
+
+        return make_response(jsonify({'user': "sad"}))
