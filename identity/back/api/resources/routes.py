@@ -83,22 +83,15 @@ class CheckToken(Resource):
         #print(data)
         token_manager = data.get("stsTokenManager")
         #print(token_manager)
-        
+        response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCzQzBZBD-kjo-eNrqvWgj8AubswSY0eX0", {"idToken":token_manager.get("accessToken")})
+        print(response.json)
 
-        custom_token = auth.create_custom_token(data.get("uid"),{
-            "admin":True,
-            "exp": int(time.time()) + 300
-        })
-        
-        
-
-        #print(ah.verify_id_uttoken(custom_token))
-        
+        #print(auth.verify_id_token(token_manager.get("accessToken")))        
         #response = requests.post('https://securetoken.googleapis.com/v1/tokeninfo', json={'id_token': custom_token.decode("utf-8")})
         
         #print(response.json)
         
-        return make_response(jsonify({'custom_token': custom_token.decode("utf-8")}))
+        return make_response(jsonify({'custom_token': "asd"}))
 
 
 class CustomFields(Resource):
