@@ -83,8 +83,12 @@ class CheckToken(Resource):
         #print(data)
         token_manager = data.get("stsTokenManager")
         #print(token_manager)
-        response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCzQzBZBD-kjo-eNrqvWgj8AubswSY0eX0", {"idToken":token_manager.get("accessToken")})
-        print(response.json)
+        response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=", {"idToken":token_manager.get("accessToken")})
+        #print(response.json())
+        response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",{"email":"puigdiuca@gmail.com", 
+        "password": "asd123"})
+        print(response.json())
+
 
         #print(auth.verify_id_token(token_manager.get("accessToken")))        
         #response = requests.post('https://securetoken.googleapis.com/v1/tokeninfo', json={'id_token': custom_token.decode("utf-8")})
